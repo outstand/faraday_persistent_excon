@@ -4,7 +4,9 @@ Adds configurable connection pools per host for persistent http connections
 
 ## Status
 
-**Prototype**
+**Alpha**
+
+All testing for this gem is currently in the form of bench testing.  We're evaulating this gem in our production stack.
 
 ## Installation
 
@@ -24,7 +26,16 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In an initializer:
+
+```ruby
+Excon.defaults[:tcp_nodelay] = true
+Faraday.default_adapter = :persistent_excon
+FaradayPersistentExcon.connection_pools = {
+  'https://search.example.com' => { size: 5 },
+  'http://localhost:9200' => { size: 10, timeout: 2 }
+}
+```
 
 ## Development
 
