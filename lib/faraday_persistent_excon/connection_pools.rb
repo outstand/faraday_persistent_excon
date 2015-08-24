@@ -26,14 +26,12 @@ module FaradayPersistentExcon
       end
 
       def connection_pool_for(url)
-        config = FaradayPersistentExcon.connection_pools.find do |hsh|
-          hsh[:url] == url
-        end
+        config = FaradayPersistentExcon.connection_pools[url]
 
         if config
           self.__pools.fetch_or_store(url) do
-            ::ConnectionPool.new(size: config[:size]) do
-              ::Excon.new(config[:url], persistent: true, thread_safe_sockets: false)
+            ::ConnectionPool.new(config) do
+              ::Excon.new(url, persistent: true, thread_safe_sockets: false)
             end
           end
         end

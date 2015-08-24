@@ -19,7 +19,7 @@ module FaradayPersistentExcon
 
   self.excon_options = {}
   self.perform_request_class = FaradayPersistentExcon::PerformRequest
-  self.connection_pools = []
+  self.connection_pools = {}
 end
 
 Faraday::Adapter.register_middleware persistent_excon: ->{ FaradayPersistentExcon::Adapter }
