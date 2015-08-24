@@ -23,7 +23,7 @@ module FaradayPersistentExcon
   self.excon_options = {}
   self.perform_request_class = FaradayPersistentExcon::PerformRequest
   self.connection_pools = {}
-  self.idempotent_methods = %w/GET HEAD PUT DELETE OPTIONS TRACE/
+  self.idempotent_methods = %w[GET HEAD PUT DELETE OPTIONS TRACE]
   self.retry_idempotent_methods = true
   self.retry_limit = 1
 end
