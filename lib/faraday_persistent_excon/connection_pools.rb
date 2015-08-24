@@ -10,15 +10,7 @@ module FaradayPersistentExcon
         pool = self.connection_pool_for(url)
 
         if pool
-          begin
-            pool.with(&block)
-          rescue ::Excon::Errors::SocketError
-            pool.shutdown { |conn| conn.reset }
-            self.__pools.delete(url)
-            raise
-          rescue ::ConnectionPool::PoolShuttingDownError => err
-            raise Faraday::Error::ConnectionFailed, err
-          end
+          pool.with(&block)
         else
           # No pool configured.  Use normal connection
           block.call(::Excon.new(url, persistent: false))
