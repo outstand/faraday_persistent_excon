@@ -39,7 +39,6 @@ module FaradayPersistentExcon
 
       if FaradayPersistentExcon.retry_idempotent_methods && FaradayPersistentExcon.idempotent_methods.include?(env[:method].to_s.upcase)
         opts[:idempotent] = true
-        opts[:retry_limit] = FaradayPersistentExcon.retry_limit
       end
 
       opts

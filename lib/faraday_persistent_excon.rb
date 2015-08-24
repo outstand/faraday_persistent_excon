@@ -17,7 +17,6 @@ module FaradayPersistentExcon
     attr_accessor :connection_pools
     attr_accessor :idempotent_methods
     attr_accessor :retry_idempotent_methods
-    attr_accessor :retry_limit
   end
 
   self.excon_options = {}
@@ -25,7 +24,6 @@ module FaradayPersistentExcon
   self.connection_pools = {}
   self.idempotent_methods = %w[GET HEAD PUT DELETE OPTIONS TRACE]
   self.retry_idempotent_methods = true
-  self.retry_limit = 1
 end
 
 Faraday::Adapter.register_middleware persistent_excon: ->{ FaradayPersistentExcon::Adapter }
