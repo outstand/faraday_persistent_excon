@@ -9,6 +9,7 @@ require 'faraday_persistent_excon/perform_request'
 require 'faraday_persistent_excon/adapter'
 require 'faraday_persistent_excon/request_options'
 require 'faraday_persistent_excon/connection_pools'
+require 'faraday_persistent_excon/connection'
 
 module FaradayPersistentExcon
   class << self
@@ -17,6 +18,7 @@ module FaradayPersistentExcon
     attr_accessor :connection_pools
     attr_accessor :idempotent_methods
     attr_accessor :retry_idempotent_methods
+    attr_accessor :idle_timeout
   end
 
   self.excon_options = {}
@@ -24,6 +26,7 @@ module FaradayPersistentExcon
   self.connection_pools = {}
   self.idempotent_methods = %w[GET HEAD PUT DELETE OPTIONS TRACE]
   self.retry_idempotent_methods = true
+  self.idle_timeout = 60
 end
 
 Faraday::Adapter.register_middleware persistent_excon: ->{ FaradayPersistentExcon::Adapter }

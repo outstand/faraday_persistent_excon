@@ -10,7 +10,14 @@ module FaradayPersistentExcon
         pool = self.connection_pool_for(url)
 
         if pool
-          pool.with(&block)
+          pool.with do |conn|
+            begin
+              conn.reset if conn.expired?
+              block.call(conn.excon)
+            ensure
+              conn.used!
+            end
+          end
         else
           # No pool configured.  Use normal connection
           block.call(::Excon.new(url, persistent: false))
@@ -23,7 +30,14 @@ module FaradayPersistentExcon
         if config
           self.__pools.fetch_or_store(url) do
             ::ConnectionPool.new(config) do
-              ::Excon.new(url, persistent: true, thread_safe_sockets: false)
+              Connection.new(
+                excon: ::Excon.new(
+                  url,
+                  persistent: true,
+                  thread_safe_sockets: false
+                ),
+                idle_timeout: config.fetch(:idle_timeout, FaradayPersistentExcon.idle_timeout)
+              )
             end
           end
         end

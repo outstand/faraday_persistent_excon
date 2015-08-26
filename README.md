@@ -33,7 +33,7 @@ Excon.defaults[:tcp_nodelay] = true
 Faraday.default_adapter = :persistent_excon
 FaradayPersistentExcon.connection_pools = {
   'https://search.example.com' => { size: 5 },
-  'http://localhost:9200' => { size: 10, timeout: 2 }
+  'http://localhost:9200' => { size: 10, timeout: 2, idle_timeout: 300 }
 }
 ```
 
