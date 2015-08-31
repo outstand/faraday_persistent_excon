@@ -25,7 +25,7 @@ module FaradayPersistentExcon
     protected
 
     def request_options
-      RequestOptions.new.call(env).merge(
+      RequestOptions.new(env).call.merge(
         method: env[:method].to_s.upcase,
         path: env[:url].path,
         query: env[:url].query,
