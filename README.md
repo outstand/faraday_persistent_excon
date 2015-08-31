@@ -1,5 +1,9 @@
 # FaradayPersistentExcon
 
+==============
+
+[![Code Climate](https://codeclimate.com/github/aceofsales/faraday_persistent_excon/badges/gpa.svg)](https://codeclimate.com/github/aceofsales/faraday_persistent_excon)
+
 Adds configurable connection pools per host for persistent http connections
 
 ## Status
