@@ -34,7 +34,12 @@ module FaradayPersistentExcon
                 excon: ::Excon.new(
                   url,
                   persistent: true,
-                  thread_safe_sockets: false
+                  thread_safe_sockets: false,
+                  keepalive: {
+                    time: 40,
+                    intvl: 10,
+                    probes: 2
+                  }
                 ),
                 idle_timeout: config.fetch(:idle_timeout, FaradayPersistentExcon.idle_timeout)
               )
