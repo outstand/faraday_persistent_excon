@@ -12,6 +12,9 @@ module FaradayPersistentExcon
         opts[:client_key]  = ssl[:client_key]  if ssl[:client_key]
         opts[:certificate] = ssl[:certificate] if ssl[:certificate]
         opts[:private_key] = ssl[:private_key] if ssl[:private_key]
+        opts[:ssl_version] = ssl[:version] if ssl[:version]
+        opts[:ssl_min_version] = ssl[:min_version] if ssl[:min_version]
+        opts[:ssl_max_version] = ssl[:max_version] if ssl[:max_version]
       end
 
       if ( req = env[:request] )
@@ -23,12 +26,12 @@ module FaradayPersistentExcon
 
         if req[:open_timeout]
           opts[:connect_timeout]   = req[:open_timeout]
-          opts[:write_timeout]     = req[:open_timeout]
         end
 
         if req[:proxy]
           opts[:proxy] = {
             host: req[:proxy][:uri].host,
+            hostname: req[:proxy][:uri].hostname,
             port: req[:proxy][:uri].port,
             scheme: req[:proxy][:uri].scheme,
             user: req[:proxy][:user],
