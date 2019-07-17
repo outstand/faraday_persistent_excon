@@ -1,0 +1,24 @@
+version: '3.6'
+services:
+  faraday_persistent_excon:
+    build: .
+    image: outstand/faraday_persistent_excon:dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - bundler-data:/usr/local/bundle
+      - .:/srv
+  release:
+    image: outstand/faraday_persistent_excon:dev
+    stdin_open: true
+    tty: true
+    command: rake release
+    volumes:
+      - bundler-data:/usr/local/bundle
+      - ~/.gitconfig:/home/gem/.gitconfig
+      - ~/.gitconfig.user:/home/gem/.gitconfig.user
+      - ~/.ssh/id_rsa:/home/gem/.ssh/id_rsa
+      - ~/.gem:/home/gem/.gem
+
+volumes:
+  bundler-data:
