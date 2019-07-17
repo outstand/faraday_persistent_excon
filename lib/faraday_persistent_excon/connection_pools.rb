@@ -33,8 +33,10 @@ module FaradayPersistentExcon
               Connection.new(
                 excon: ::Excon.new(
                   url,
-                  persistent: true,
-                  thread_safe_sockets: false
+                  {
+                    persistent: true,
+                    thread_safe_sockets: false
+                  }.merge(config.fetch(:connection_options, {}))
                 ),
                 idle_timeout: config.fetch(:idle_timeout, FaradayPersistentExcon.idle_timeout)
               )

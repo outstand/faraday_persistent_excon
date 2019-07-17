@@ -14,7 +14,7 @@ module FaradayPersistentExcon
     end
 
     def expired?
-      return false if last_use.nil?
+      return false if last_use.nil? || idle_timeout == 0
 
       Time.now.utc - last_use > idle_timeout
     end
