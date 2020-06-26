@@ -11,15 +11,16 @@ module FaradayPersistentExcon
       end
 
     rescue ::Excon::Errors::SocketError => err
-      if err.message =~ /\btimeout\b/
-        raise Faraday::Error::TimeoutError, err
-      elsif err.message =~ /\bcertificate\b/
-        raise Faraday::Error::SSLError, err
+      case err.message
+      when /\btimeout\b/
+        raise Faraday::TimeoutError, err
+      when /\bcertificate\b/
+        raise Faraday::SSLError, err
       else
-        raise Faraday::Error::ConnectionFailed, err
+        raise Faraday::ConnectionFailed, err
       end
     rescue ::Excon::Errors::Timeout => err
-      raise Faraday::Error::TimeoutError, err
+      raise Faraday::TimeoutError, err
     end
 
     protected
