@@ -12,7 +12,13 @@ module FaradayPersistentExcon
 
     def perform_request(env)
       response = FaradayPersistentExcon.perform_request_class.new.call env
-      save_response(env, response.status.to_i, response.body, response.headers)
+      save_response(
+        env,
+        response.status.to_i,
+        response.body,
+        response.headers,
+        response.reason_phrase
+      )
     end
   end
 end
