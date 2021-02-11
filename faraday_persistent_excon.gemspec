@@ -7,11 +7,11 @@ Gem::Specification.new do |spec|
   spec.name          = "faraday_persistent_excon"
   spec.version       = FaradayPersistentExcon::VERSION
   spec.authors       = ["Ryan Schlesinger"]
-  spec.email         = ["ryan@aceofsales.com"]
+  spec.email         = ["ryan@outstand.com"]
 
   spec.summary       = %q{Persistent connections with faraday and excon}
   spec.description   = %q{Adds configurable connection pools per host for persistent http connections}
-  spec.homepage      = "https://github.com/aceofsales/faraday_persistent_excon"
+  spec.homepage      = "https://github.com/outstand/faraday_persistent_excon"
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
   spec.bindir        = "exe"
